@@ -53,6 +53,7 @@ def find_similar_dogs():
         list_str = list_str.strip('[]')  # Remove the surrounding brackets
         global dog_images_paths
         dog_images_paths = [os.path.join('dog_images', item.strip()) for item in list_str.split(',')]
+        #dog_images_paths = [item.strip() for item in list_str.split(',')]
         print("Updated dog_images_paths:", dog_images_paths)
 
 
@@ -73,10 +74,11 @@ def find_similar_dogs():
     # Find the most similar dog images
     #top_5_similar_dogs = find_top_n_similar(input_descriptor, dog_descriptors, n=5)
     top_similar_dogs = handle_request(file_path)
+    image_name = os.path.basename(top_similar_dogs)
     # Clean up uploaded file
     os.remove(file_path)
     
-    response = jsonify({"data": top_similar_dogs})
+    response = jsonify({"data": image_name})
     response.charset = 'utf-8'
     return response
 
